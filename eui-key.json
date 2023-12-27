@@ -1,0 +1,302 @@
+[
+    {
+        "id": "3c7ff15c02e06f3b",
+        "type": "tab",
+        "label": "EUI & Key Generator",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e4e18937f8aef18c",
+        "type": "function",
+        "z": "3c7ff15c02e06f3b",
+        "name": "EUI & Key Generator",
+        "func": "var AppKey = [\n\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256)\n\n];\n\nvar App = [\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256)\n    ];\nApp[0] = (App[0] & ~1) | 2;\n\nvar Dev = [\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256),\n    Math.floor(Math.random() * 256)\n];\nDev[0] = (Dev[0] & ~1) | 2;\n\n\n//Function to convert to HEX\nfunction hexBuffer(element) {\n    let hexBuffer = \"\";\n    for (let c = 0; c < element.length; c++) {\n        hexBuffer += \"0x\";\n        if (element[c] < 16) {\n            hexBuffer += \"0\";\n        }\n        hexBuffer += element[c].toString(16).toUpperCase();\n        hexBuffer += (c != element.length - 1) ? \", \" : \"\";\n    }\n    return hexBuffer;\n}\n\n//Function to convert the array to a string\nfunction arrayString(digits) {\n    let arrayString = \"\";\n    for (let c = 0; c < digits.length; c++) {\n        if (digits[c] < 16) {\n            arrayString += \"0\";\n        }\n        arrayString += digits[c].toString(16);\n    }\n    return arrayString;\n}\n\n\nvar AppEUIhex = hexBuffer(App);\nvar AppEUIString = arrayString(App).toUpperCase();\n\nvar DevEUIhex = hexBuffer(Dev);\nvar DevEUIString = arrayString(Dev).toUpperCase();\n\nvar AppKeyhex = hexBuffer(AppKey);\nvar AppKeyString = arrayString(AppKey).toUpperCase();\n\nmsg.payload = {\n    'AppEUIhex': AppEUIhex,\n    'AppEUIString': AppEUIString,\n    'DevEUIhex': DevEUIhex,\n    'DevEUIString': DevEUIString,\n    'AppKeyhex': AppKeyhex,\n    'AppKeyString': AppKeyString}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 160,
+        "wires": [
+            [
+                "c3ccd466a4d73f74",
+                "d57fd24bb2577d63",
+                "a347bb7d3e80bd6b",
+                "8d22805b99b0a5ce",
+                "8b93bc0efdcb413a",
+                "af4e879a1aa74340",
+                "dc24a2a0510c8e6b"
+            ]
+        ]
+    },
+    {
+        "id": "1a3d2f21656b52d9",
+        "type": "inject",
+        "z": "3c7ff15c02e06f3b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "e4e18937f8aef18c"
+            ]
+        ]
+    },
+    {
+        "id": "c3ccd466a4d73f74",
+        "type": "debug",
+        "z": "3c7ff15c02e06f3b",
+        "name": "EUI & Key Generater Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d57fd24bb2577d63",
+        "type": "ui_text",
+        "z": "3c7ff15c02e06f3b",
+        "group": "8d2e98a4e760cf4d",
+        "order": 2,
+        "width": "8",
+        "height": "1",
+        "name": "",
+        "label": "Hex",
+        "format": "{{msg.payload.AppEUIhex}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 730,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "a347bb7d3e80bd6b",
+        "type": "ui_text",
+        "z": "3c7ff15c02e06f3b",
+        "group": "8d2e98a4e760cf4d",
+        "order": 1,
+        "width": "8",
+        "height": "1",
+        "name": "",
+        "label": "String",
+        "format": "{{msg.payload.AppEUIString}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 730,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "cd9682929e72a1a9",
+        "type": "ui_button",
+        "z": "3c7ff15c02e06f3b",
+        "name": "",
+        "group": "b4b9c90761df75ea",
+        "order": 0,
+        "width": "4",
+        "height": "2",
+        "passthru": false,
+        "label": "Generate New EUI & Key",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "e4e18937f8aef18c"
+            ]
+        ]
+    },
+    {
+        "id": "8b93bc0efdcb413a",
+        "type": "ui_text",
+        "z": "3c7ff15c02e06f3b",
+        "group": "70a470ba3ce384cc",
+        "order": 2,
+        "width": "8",
+        "height": "1",
+        "name": "",
+        "label": "Hex",
+        "format": "{{msg.payload.DevEUIhex}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 730,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8d22805b99b0a5ce",
+        "type": "ui_text",
+        "z": "3c7ff15c02e06f3b",
+        "group": "70a470ba3ce384cc",
+        "order": 1,
+        "width": "8",
+        "height": "1",
+        "name": "",
+        "label": "String",
+        "format": "{{msg.payload.DevEUIString}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 730,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "dc24a2a0510c8e6b",
+        "type": "ui_text",
+        "z": "3c7ff15c02e06f3b",
+        "group": "6e56ea1879cd34a6",
+        "order": 2,
+        "width": "16",
+        "height": "1",
+        "name": "",
+        "label": "Hex",
+        "format": "{{msg.payload.AppKeyhex}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 730,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "af4e879a1aa74340",
+        "type": "ui_text",
+        "z": "3c7ff15c02e06f3b",
+        "group": "6e56ea1879cd34a6",
+        "order": 1,
+        "width": "16",
+        "height": "1",
+        "name": "",
+        "label": "String",
+        "format": "{{msg.payload.AppKeyString}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 730,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "4a19ec110e165bfc",
+        "type": "ui_text",
+        "z": "3c7ff15c02e06f3b",
+        "group": "e0ab05b4ef961c95",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "https://www.thethingsnetwork.org/forum/t/deveui-for-non-hardware-assigned-values/2093/23                There are no guarantees and you use this at your own risk.",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 560,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "853b1732bbb5431d",
+        "type": "comment",
+        "z": "3c7ff15c02e06f3b",
+        "name": "EUI & Key Generator",
+        "info": "https://www.thethingsnetwork.org/forum/t/deveui-for-non-hardware-assigned-values/2093/23\n\nThere are no guarantees and you use this at your own risk.",
+        "x": 160,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "8d2e98a4e760cf4d",
+        "type": "ui_group",
+        "name": "AppEUI",
+        "tab": "25e14ef0200e28de",
+        "order": 2,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b4b9c90761df75ea",
+        "type": "ui_group",
+        "name": "Generate",
+        "tab": "25e14ef0200e28de",
+        "order": 1,
+        "disp": true,
+        "width": "4",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "70a470ba3ce384cc",
+        "type": "ui_group",
+        "name": "DevEUI",
+        "tab": "25e14ef0200e28de",
+        "order": 3,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6e56ea1879cd34a6",
+        "type": "ui_group",
+        "name": "AppKey",
+        "tab": "25e14ef0200e28de",
+        "order": 4,
+        "disp": true,
+        "width": "16",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e0ab05b4ef961c95",
+        "type": "ui_group",
+        "name": "With reference to the post in TTN",
+        "tab": "25e14ef0200e28de",
+        "order": 5,
+        "disp": true,
+        "width": "36",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "25e14ef0200e28de",
+        "type": "ui_tab",
+        "name": "EUI-64",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
