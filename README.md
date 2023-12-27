@@ -1,6 +1,6 @@
 # EUI & Key Generator
 
-This is an Node-Red flow to generate AppEUI, DEVEUI and AppKey to be used in personal projects
+This is a Node-Red flow to generate AppEUI, DEVEUI and AppKey to be used in personal projects
 
 ## Content
 
